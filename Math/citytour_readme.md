@@ -1,14 +1,15 @@
 <h4>
-Problem Link: https://www.interviewbit.com/problems/city-tour/
-Same Problem: https://codeforces.com/contest/294/problem/C
-Tutorial Link: https://codeforces.com/blog/entry/7287
+Problem Link: https://www.interviewbit.com/problems/city-tour/</br>
+Same Problem: https://codeforces.com/contest/294/problem/C</br>
+Tutorial Link: https://codeforces.com/blog/entry/7287</br>
 
-Sample Input:
+Sample Input:<pre>
 11, 2
 4, 8
-
-Sample Output:
+</pre>
+Sample Output:<pre>
 6720
+</pre>
 </h4>
 The third sample is ...#...#... where # is a switched on lamp and . is a switched off lamp. As you can see we have three different types of lights. 
 The first three lights (Type A), the 5th to 8th lights (Type B) and the last three lights (Type C). We have to switch on the lights three times for each type of lights. 
@@ -34,6 +35,11 @@ The final formula becomes ((n-k)!/(X_0!X_2!…X_(k-1)!) )(2^(X_1 -1 + X_2 - 1 + 
 
 The same solution is present as the editorial for this question. You have to remember that ((X_0 + X_1)C(X_1))((X_0+X_1+X_3)C(X_3))….((n-k)C(X_k)) is 
 same as ((n-k)!/(X_0!X_2!…*X_(k-1)!) ).
+
+<h5>My Solution:</h5>
+<h6>
+    
+```cpp
 
 // Modulo Multiplication that is a*b % mod .
 long long multi_mod(long long a, long long b, long long mod) {
@@ -113,5 +119,7 @@ int Solution::solve(int A, vector<int> &B) {
     }
     return (int) result;
 }
+
+```
 
 
