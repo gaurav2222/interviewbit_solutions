@@ -1,8 +1,8 @@
 <h4>
 Problem Link: https://www.interviewbit.com/problems/city-tour/</br>
 Same Problem: https://codeforces.com/contest/294/problem/C</br>
-Tutorial Link: https://codeforces.com/blog/entry/7287</br>
-
+Codeforces Tutorial Link: https://codeforces.com/blog/entry/7287</br>
+<br>
 Sample Input:<pre>
 11, 2
 4, 8
@@ -11,6 +11,7 @@ Sample Output:<pre>
 6720
 </pre>
 </h4>
+<h4>Editorial by Codeforces:</h4>
 The third sample is ...#...#... where # is a switched on lamp and . is a switched off lamp. As you can see we have three different types of lights. 
 The first three lights (Type A), the 5th to 8th lights (Type B) and the last three lights (Type C). We have to switch on the lights three times for each type of lights. 
 Aside from the order of moves for each type there are 9!/(3!*3!*3!) possible permutations of the string AAABBBCCC which tells us how to combine the steps of different types. 
@@ -31,12 +32,12 @@ This will lead to the expression (n-k)!/(X_0! * X_1! * … *X_k!).
 There are more than one way of visiting cities between the two visited cities. Precisely, there are 2^(X_i-1) ways to visit for all i. Thus we need to multiply with X_i’s.
 Here we need to remember that there is only one way to visit X_0 and X_k.
 
-The final formula becomes ((n-k)!/(X_0!X_2!…X_(k-1)!) )(2^(X_1 -1 + X_2 - 1 + X_3 - 1 + … + X_(k-1)-1))
+The final formula becomes ((n-k)!/(X_0!X_2!…X_(k-1)!) )(2^(X_1 -1 + X_2 - 1 + X_3 - 1 + … + X_(k-1)-1)).
 
-The same solution is present as the editorial for this question. You have to remember that ((X_0 + X_1)C(X_1))((X_0+X_1+X_3)C(X_3))….((n-k)C(X_k)) is 
-same as ((n-k)!/(X_0!X_2!…*X_(k-1)!) ).
+The same solution is present as the editorial for this question. You have to remember 
+that ((X_0 + X_1)C(X_1))((X_0+X_1+X_3)C(X_3))…((n-k)C(X_k)) is same as ((n-k)!/(X_0!X_2!…*X_(k-1)!)).
 
-<h5>My Solution:</h5>
+<h5>My / Interviewbit Solution : Easy Understandable Solution (Best Solution)</h5>
 <h6>
     
 ```cpp
@@ -122,4 +123,47 @@ int Solution::solve(int A, vector<int> &B) {
 
 ```
 
+<h5>Codeforces Solution:</h5>
+
+```cpp
+
+#include<cstdio>
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+#include<list>
+#include<queue>
+#define LL long long
+#define M 1000000007
+using namespace std;
+LL n,m,nCr[1001][1001],ans=1,s[1001],pow[1001];
+int main(){
+    cin >> n >> m;
+    for(int i=0;i<=n;i++){
+        for(int j=0;j<=i;j++){
+            if(j==0 || j==i) nCr[i][j]=1;
+            else nCr[i][j]=(nCr[i-1][j-1]+nCr[i-1][j])%M;
+        }
+    }
+    pow[0]=1;pow[1]=1;
+    for(int i=2;i<=n;i++) pow[i]=(pow[i-1]*2)%M;
+    for(int i=0;i<m;i++) cin >> s[i];
+    sort(s,s+m);
+    LL cnt=0,tmp;
+    for(int i=0;i<m;i++){
+        if(i==0) tmp=s[i]-1;
+        else{
+            tmp=s[i]-s[i-1]-1;
+            ans=(ans*pow[tmp])%M;
+        }
+        cnt+=tmp;
+        ans=(ans*nCr[cnt][tmp])%M;
+    }
+    cnt+=n-s[m-1];
+    ans=ans*nCr[cnt][n-s[m-1]]%M;
+    cout << ans << endl;
+    return 0;
+}
+
+```
 
